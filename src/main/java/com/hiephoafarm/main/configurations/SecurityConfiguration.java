@@ -47,7 +47,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 		final CorsConfiguration configuration = new CorsConfiguration();
-		configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000/", "https://linhfarm.vercel.app/"));
+		configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000/", "https://linhfarm.vercel.app/", "https://d05c-2405-4803-c845-be90-f874-ad60-b4b9-b96.ap.ngrok.io/"));
 		configuration.setAllowedMethods(Arrays.asList("HEAD",
 				"GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
 		configuration.setAllowCredentials(true);
