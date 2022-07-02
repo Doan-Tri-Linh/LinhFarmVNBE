@@ -35,4 +35,15 @@ public class ContactRestController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
+	@CrossOrigin
+	@RequestMapping(value="save", method = RequestMethod.OPTIONS)
+	public ResponseEntity<?> save2(@RequestBody ContactObj contact){
+		try {
+			ContactObj res = contactService.save(contact);
+			return new ResponseEntity<>(res, HttpStatus.OK);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
 }

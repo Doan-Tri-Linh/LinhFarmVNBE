@@ -231,6 +231,51 @@ public class OrderRestController {
 		}
 	}
 
+	@CrossOrigin
+	@RequestMapping(value="save", method = RequestMethod.OPTIONS)
+	public ResponseEntity<?> createOrder2(@RequestBody String payload){
+		try {
+			System.out.println(payload);
+			JSONObject obj = new JSONObject(payload);
+
+			OrdersObj order = new OrdersObj();
+			order.setCustomerName(obj.getString("customerName"));
+			order.setCustomerPhone(obj.getString("customerPhone"));
+			order.setCustomerEmail(obj.getString("customerEmail"));
+			order.setAddress(obj.getString("address"));
+			order.setShippingFee(obj.getInt("shippingFee"));
+			order.setOrderAmount(obj.getInt("orderAmount"));
+//			order.setCreatedTime(new Date( new java.util.Date().getTime()));
+			order.setStatusId(3);
+
+			OrdersObj rep = ordersService.saveOrder(order);
+
+			if(rep != null){
+				List<OrderDetailObj> items = new ArrayList<>();
+
+				JSONArray arr = obj.getJSONArray("cart");
+				for (int i = 0; i < arr.length(); i++) {
+					OrderDetailObj item = new OrderDetailObj();
+					item.setProductId(arr.getJSONObject(i).getInt("idProduct"));
+					item.setQuantity(arr.getJSONObject(i).getInt("quantity"));
+					item.setOrderId(rep.getIdOrder());
+
+					items.add(item);
+				}
+				ordersService.saveAllOrderDetail(items);
+
+			} else {
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+			//sendEmail
+			sendHTMLEmail(rep);
+			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+
 	public void sendEmail(String sendTo){
 		//sendEmail
 		SimpleMailMessage message = new SimpleMailMessage();

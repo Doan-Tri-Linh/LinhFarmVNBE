@@ -54,6 +54,23 @@ public class ProductRestController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
+	@CrossOrigin
+	@RequestMapping(value="saveReview", method = RequestMethod.OPTIONS)
+	public ResponseEntity<?> saveReviews2(@RequestBody String payload){
+		try {
+			JSONObject obj = new JSONObject(payload);
+			ReviewObj review = new ReviewObj();
+			review.setContent(obj.getString("content"));
+			review.setProductId(obj.getInt("productId"));
+			review.setUserId(obj.getInt("userId"));
+
+			ReviewObj result = reviewService.save(review);
+			return new ResponseEntity<>(result, HttpStatus.OK);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
 
 	@CrossOrigin
 	@RequestMapping(value="getProductReviews", method = RequestMethod.GET)

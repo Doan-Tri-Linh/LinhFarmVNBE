@@ -76,8 +76,49 @@ public class UserRestController {
 		}
 	}
 	@CrossOrigin
+	@RequestMapping(value="register", method = RequestMethod.OPTIONS)
+	public ResponseEntity<?> register2(@RequestBody UserObj user){
+		try {
+			UserObj compUser = userService.findUserObjByUsername(user.getUsername());
+			if(compUser != null){
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+			String password = user.getPassword().trim();
+			String hash = new BCryptPasswordEncoder().encode(password);
+			user.setPassword(hash);
+			user.setStatusId(1);
+			user.setRoleId(3);
+			UserObj flag = userService.save(user);
+			return new ResponseEntity<>(flag, HttpStatus.OK);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	@CrossOrigin
 	@RequestMapping(value="profileSave", method = RequestMethod.POST)
 	public ResponseEntity<?> profileSave(@RequestBody UserObj user){
+		try {
+			UserObj compUsername = userService.findUserObjIsAnotherUsername(user.getIdUser(), user.getUsername());
+			if(compUsername != null){
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+			UserObj compUser = userService.findById(user.getIdUser());
+			if(!compUser.getPassword().equals(user.getPassword())){
+				String password = user.getPassword().trim();
+				String hash = new BCryptPasswordEncoder().encode(password);
+				user.setPassword(hash);
+			}
+			UserObj flag = userService.save(user);
+			return new ResponseEntity<>(flag, HttpStatus.OK);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	@CrossOrigin
+	@RequestMapping(value="profileSave", method = RequestMethod.OPTIONS)
+	public ResponseEntity<?> profileSave2(@RequestBody UserObj user){
 		try {
 			UserObj compUsername = userService.findUserObjIsAnotherUsername(user.getIdUser(), user.getUsername());
 			if(compUsername != null){
