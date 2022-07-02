@@ -268,7 +268,7 @@
             let total = $('#countProduct').val();
             const pagination = new tui.Pagination('pagination', {
                 totalItems: parseInt(total),
-                itemsPerPage: 5,
+                itemsPerPage: 7,
                 visiblePages: 5
             });
             // Load table
@@ -278,7 +278,7 @@
                 console.log(currentPage);
                 let datas = {
                     "page" : currentPage,
-                    "size" : 5,
+                    "size" : 7,
                     "sort" : "DESC",
                 }
                 $(location).attr('href','infos?page='+datas.page+'&size='+datas.size);

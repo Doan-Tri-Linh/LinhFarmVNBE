@@ -35,7 +35,7 @@ public class ProductController {
     @RequestMapping(value = {"infos"} ,method = RequestMethod.GET)
     public String product(ModelMap modelMap,
                           @RequestParam(name = "page", required = false, defaultValue = "1") Integer page,
-                          @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
+                          @RequestParam(name = "size", required = false, defaultValue = "7") Integer size) {
         modelMap.put("countProduct", productService.countAll());
 //        Sort sortable = Sort.by("id_product").descending();
         Pageable pageable = PageRequest.of(page-1, size);
