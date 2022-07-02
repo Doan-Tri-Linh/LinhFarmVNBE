@@ -19,7 +19,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="copyright">
-                                <p>Linh FARM MANAGEMENT SYSTEM</p>
+                                <p>LINH FARM MANAGEMENT SYSTEM</p>
                             </div>
                         </div>
                     </div>

@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.main</groupId>
-    <artifactId>HiepHoaFarm</artifactId>
+    <artifactId>LinhFarm</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>HiepHoaFarm</name>
+    <name>LinhFarm</name>
     <description>HiepHoaFarm</description>
     <properties>
         <java.version>1.8</java.version>
